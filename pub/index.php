@@ -33,7 +33,7 @@ Route::add('/upload', function() {
         Post::upload($_FILES['uploadedFile']['tmp_name'], $_POST['title'], $_POST['userId']);
     }
     //TODO: zmienić na ścieżkę względną
-    header("Location: http://localhost/cms2/pub");
+    header("Location: http://localhost/cms2nowy/pub");
 }, 'post');
 Route::add('/register', function() {
     global $twig;
@@ -44,7 +44,7 @@ Route::add('/register', function(){
     global $twig;
     if(isset($_POST['submit'])) {
         User::register($_POST['email'], $_POST['password']);
-        header("Location: http://localhost/cms2/pub");
+        header("Location: http://localhost/cms2nowy/pub");
     }
 }, 'post');
 
@@ -59,7 +59,7 @@ Route::add('/login', function() {
     if(isset($_POST['submit'])) {
         if(User::login($_POST['email'], $_POST['password'])) {
             //zalogowano poprawnie
-            header("Location: http://localhost/cms2/pub");
+            header("Location: http://localhost/cms2nowy/pub");
         } else {
             //błąd logowania
             $twigData = array('pageTitle' => "Zaloguj użytkownika",
@@ -82,7 +82,7 @@ Route::add('/admin', function()  {
 Route::add('/admin/remove/([0-9]*)', function($id) {
     if(Post::remove($id)) {
         //udało się usunąć
-        header("Location: http://localhost/cms2/pub/");
+        header("Location: http://localhost/cms2nowy/pub/");
     } else {
         die("Nie udało się usunąć podanego obrazka");
     }
@@ -90,11 +90,11 @@ Route::add('/admin/remove/([0-9]*)', function($id) {
 	
 Route::add('/upvote/([0-9]*)', function($id) {	
     Vote::upVote($id, $_SESSION['user']->getId());	
-    header("Location: http://localhost/cms2/pub/");	
+    header("Location: http://localhost/cms2nowy/pub/");	
 });	
 Route::add('/downvote/([0-9]*)', function($id) {	
     Vote::downVote($id, $_SESSION['user']->getId());	
-    header("Location: http://localhost/cms2/pub/");	
+    header("Location: http://localhost/cms2nowy/pub/");	
 });	
-Route::run('/cms2/pub');	
+Route::run('/cms2nowy/pub');	
 ?>
